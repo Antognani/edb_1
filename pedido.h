@@ -10,6 +10,7 @@ typedef struct Prato {
 //struct pra item individual do pedido, sendo que cada itemPedido é uma unidade de um prato no pedido
 typedef struct ItemPedido {
     Prato pratoInfo;
+    int quantidade;
     struct ItemPedido* proximoItemPedido;
 } ItemPedido;
 

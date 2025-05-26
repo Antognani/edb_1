@@ -67,7 +67,7 @@ void exibirMenuOpcoes() {
 
 int main() {
     NoLista* listaPedidosSalao = NULL;
-    Fila* filaPedidosCozinha = criarFilaCozinha;
+    Fila* filaPedidosCozinha = criarFilaCozinha();
 
     inicializarCardapio();
 
@@ -100,16 +100,16 @@ int main() {
                 int idItemParaRemover, idPedidoParaModificar;
                 printf("ID do Pedido para modificar: ");
                 if (scanf("%d", &idItemParaRemover) != 1) {
-                    printf("Entrada invalida.\n"); limpar_buffer_entrada_std(); break;
-                } limpar_buffer_entrada_std();
+                    printf("Entrada invalida.\n"); limparBufferEntrada(); break;
+                } limparBufferEntrada();
 
                 printf("ID do Prato a remover: ");
                 if (scanf("%d", &idPedidoParaModificar) != 1) {
-                    printf("Entrada invalida.\n"); limpar_buffer_entrada_std(); break;
-                } limpar_buffer_entrada_std();
+                    printf("Entrada invalida.\n"); limparBufferEntrada(); break;
+                } limparBufferEntrada();
                 
                 //atualiza lista pra refletir a remoção
-                listaPedidosSalao = remover_prato_de_pedido_salao(listaPedidosSalao, idItemParaRemover, idPedidoParaModificar);
+                listaPedidosSalao = removerPratoPedidoSalao(listaPedidosSalao, idItemParaRemover, idPedidoParaModificar);
                 break;
             }
             case 3: { // Processar pedido (Cozinha) - transferir

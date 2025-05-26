@@ -5,7 +5,7 @@
 Fila* criarFilaCozinha() {
     Fila* q = (Fila*) malloc(sizeof(Fila));
     if(!q) {
-        perror("Erro ao alocar Fila Cozinha");
+        perror("Erro ao alocar fila cozinha");
         exit(EXIT_FAILURE);
     }
     q->inicio = NULL;
@@ -20,7 +20,7 @@ void enfileirarPedidoCozinha(Fila* q, Pedido p) {
         perror("Erro ao alocar NoFila");
         exit(EXIT_FAILURE);
     }
-    novoNo->pedidoData = p;
+    novoNo->pedidoInfo = p;
     novoNo->proximoNoFila = NULL;
 
     if (filaCozinhaVazia(q)) {
@@ -46,7 +46,7 @@ Pedido* desenfileirarPedidoCozinha(Fila* q) {
         perror("Erro ao alocar copia Pedido processado");
         exit(EXIT_FAILURE);
     }
-    *pedidoProcessadoCopia = noRemovido->pedidoData;
+    *pedidoProcessadoCopia = noRemovido->pedidoInfo;
 
     q->inicio = q->inicio->proximoNoFila;
     if(q->inicio == NULL) {
@@ -59,7 +59,7 @@ Pedido* desenfileirarPedidoCozinha(Fila* q) {
 }
 
 void listarPedidosProcessamentoCozinha(Fila* q) {
-    printf("\n--- Pedidos em Processamento na Cozinha ---\n");
+    printf("\n--- Pedidos em processamento na cozinha ---\n");
     if(filaCozinhaVazia(q)) {
         printf("Nenhum pedido na fila da cozinha.\n");
         return;
@@ -67,20 +67,20 @@ void listarPedidosProcessamentoCozinha(Fila* q) {
     NoFila* atual = q->inicio;
     int pos = 1;
     while (atual != NULL) {
-        printf("\n%dº da Fila - Pedido ID: %d\n", pos++, atual->pedidoData.idPedido);
-        ItemPedido* itemAtual = atual->pedidoData.itensPedido;
+        printf("\n%dº da Fila - Pedido ID: %d\n", pos++, atual->pedidoInfo.idPedido);
+        ItemPedido* itemAtual = atual->pedidoInfo.itensPedido;
         if (itemAtual == NULL) {
             printf("Pedido vazio.");
         }
         while (itemAtual != NULL) {
-            printf(" - Prato: %s (ID: %d), Quantidade: %d\n", 
+            printf(" - Prato: %s (ID: %d)\n", 
                 itemAtual->pratoInfo.nome,
-                itemAtual->pratoInfo.id,
-                itemAtual->quantidade);
+                itemAtual->pratoInfo.id
+            );
             itemAtual = itemAtual->proximoItemPedido;
         }
         printf("----------------------------------");
-        atual = atual->proximoNoFila
+        atual = atual->proximoNoFila;
     }
 }
 
@@ -93,7 +93,7 @@ void liberarFilaCozinha(Fila* q) {
     NoFila* atual = q->inicio;
     while (atual != NULL) {
         NoFila* proximo = atual->proximoNoFila;
-        ItemPedido* itemAtual = atual->pedidoData.itensPedido;
+        ItemPedido* itemAtual = atual->pedidoInfo.itensPedido;
         while (itemAtual != NULL) {
             ItemPedido* proximoItem = itemAtual->proximoItemPedido;
             free(itemAtual);
