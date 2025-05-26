@@ -3,7 +3,7 @@
 #include <string.h>
 #include "lista_salao.h"
 
-NoLista* adicionar_pedido_salao(NoLista* cabecaLista, Pedido novoPedido) {
+NoLista* adicionarPedidoSalao(NoLista* cabecaLista, Pedido novoPedido) {
     NoLista* novoNo = (NoLista*) malloc(sizeof(NoLista));
     if (!novoNo) {
         perror("Erro ao alocar memoria para novo pedido no salao");
@@ -15,26 +15,26 @@ NoLista* adicionar_pedido_salao(NoLista* cabecaLista, Pedido novoPedido) {
     return novoNo;
 }
 
-NoLista* remover_prato_de_pedido_salao(NoLista* cabecaLista, int idPedidoAlvo, int idPratoRemover) {
+NoLista* removerPratoPedidoSalao(NoLista* cabecaLista, int idPedidoAlvo, int idPratoRemover) {
     if (cabecaLista == NULL) {
         printf("Salao vazio. Nada para modificar.\n");
         return NULL;
     }
 
-    NoLista* atualPedido = cabecaLista;
-    NoLista* anteriorPedido = NULL;
+    NoLista* atualNoPedido = cabecaLista;
+    NoLista* anteriorNoPedido = NULL;
 
-    while (atualPedido != NULL && atualPedido->pedidoData.idPedido != idPedidoAlvo) {
-        anteriorPedido = atualPedido;
-        atualPedido = atualPedido->proximoLista;
+    while (atualNoPedido != NULL && atualNoPedido->pedidoData.idPedido != idPedidoAlvo) {
+        anteriorNoPedido = atualNoPedido;
+        atualNoPedido = atualNoPedido->proximoNoLista;
     }
 
-    if (atualPedido == NULL) {
+    if (atualNoPedido == NULL) {
         printf("Pedido com ID %d nao encontrado no salao.\n", idPedidoAlvo);
         return cabecaLista;
     }
 
-    ItemPedido* itemRemover = atualPedido->pedidoData.itensPedido;
+    ItemPedido* itemRemover = atualNoPedido->pedidoData.itensPedido;
     ItemPedido* anteriorItem = NULL;
 
     while (itemRemover != NULL && itemRemover->pratoInfo.id != idPratoRemover) {
@@ -48,21 +48,21 @@ NoLista* remover_prato_de_pedido_salao(NoLista* cabecaLista, int idPedidoAlvo, i
     }
 
     if (anteriorItem == NULL) { 
-        atualPedido->pedidoData.itensPedido = itemRemover->proximoItemPedido;
+        atualNoPedido->pedidoData.itensPedido = itemRemover->proximoItemPedido;
     } else { 
-        anteriorItem->proximoItempedido = itemRemover->proximoItemPedido;
+        anteriorItem->proximoItemPedido = itemRemover->proximoItemPedido;
     }
     printf("Prato '%s' (ID: %d) removido do Pedido ID %d.\n", itemRemover->pratoInfo.nome, itemRemover->pratoInfo.id, idPedidoAlvo);
     free(itemRemover); 
 
-    if (atualPedido->pedidoData.itensPedido == NULL) {
+    if (atualNoPedido->pedidoData.itensPedido == NULL) {
         printf("Pedido ID %d ficou vazio e foi removido do salao.\n", idPedidoAlvo);
-        if (anteriorPedido == NULL) { 
-            cabecaLista = atualPedido->proximoLista;
+        if (anteriorNoPedido == NULL) { 
+            cabecaLista = atualNoPedido->proximoNoLista;
         } else { 
-            anteriorPedido->proximoLista = atualPedido->proximoLista;
+            anteriorNoPedido->proximoNoLista = atualNoPedido->proximoLista;
         }
-        free(atualPedido); 
+        free(atualNoPedido); 
     }
     return cabecaLista;
 }
@@ -89,14 +89,14 @@ void listarPedidosPendentesSalao(NoLista* cabecaLista) {
             itemAtual = itemAtual->proximoItemPedido;
         }
         printf("----------------------------------");
-        atual = atual->proximoLista;
+        atual = atual->proximoNoLista;
     }
 }
 
-void liberar_lista_pedidos_salao(NoLista* cabecaLista) {
+void liberarListaPedidosSalao(NoLista* cabecaLista) {
     NoLista* atual = cabecaLista;
     while (atual != NULL) {
-        NoLista* proximo = atual->proximoLista;
+        NoLista* proximo = atual->proximoNoLista;
         ItemPedido* itemAtual = atual->pedidoData.itensPedido;
         while (itemAtual != NULL) {
             ItemPedido* proximoItem = itemAtual->proximoItemPedido;
@@ -108,7 +108,7 @@ void liberar_lista_pedidos_salao(NoLista* cabecaLista) {
     }
 }
 
-Pedido criar_pedido_interativo(Prato cardapio[], int numPratosCardapio, int* proximoIdPedido) {
+Pedido criarPedidoInterativo(Prato cardapio[], int numPratosCardapio, int* proximoIdPedido) {
     Pedido novoPedido;
     novoPedido.idPedido = (*proximoIdPedido)++;
     novoPedido.itensPedido = NULL; 
