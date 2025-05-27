@@ -4,3 +4,5 @@
 #### CONVENÇÃO: Utilizar camelCase para nomear variáveis e funções.
 Sempre comentar partes chave do código, desde que não sejam autoexplicativas ou que já não tenham sido comentadas antes;
 (por exemplo, é desnecessário recomentar a função limparBufferEntrada, pois ela é autoexplicativa).
+
+#### O projeto conta com um Makefile, então para executar basta digitar make no terminal, e em seguida ./sistemaRestaurante
