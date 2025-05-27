@@ -5,13 +5,13 @@
 //função que cria fila da cozinha, onde os pedidos serão enfileirados na ordem que chegam no salão
 Fila* criarFilaCozinha() { 
     Fila* q = (Fila*) malloc(sizeof(Fila)); //aloca memória para a fila
-    if(!q) { // verifica se houve erro na alocação
-        perror("Erro ao alocar fila cozinha"); // imprime erro caso falhe ao alocar memória
-        exit(EXIT_FAILURE); // encerra o programa
+    if(!q) { //verifica se houve erro na alocação
+        perror("Erro ao alocar fila cozinha"); //imprime erro caso falhe ao alocar memória
+        exit(EXIT_FAILURE); //encerra o programa
     }
-    q->inicio = NULL; // incializa inicio como NULL, indicando que a fila está vazia
-    q->fim = NULL; // inicializa fim como NULL, também indicando que estar vazia
-    q->tamanho = 0; // define tamanho como zero, indicando que a fila começça com nenhum pedido
+    q->inicio = NULL; //incializa inicio como NULL, já que a fila está vazia
+    q->fim = NULL; //inicializa fim como NULL, também indicando que estar vazia
+    q->tamanho = 0; //define tamanho como zero, indicando que a fila começça com nenhum pedido
     return q; //retorna ponteiro para a fila criada
 }
 
@@ -23,11 +23,11 @@ void enfileirarPedidoCozinha(Fila* q, Pedido p) {
         exit(EXIT_FAILURE); //encera o programa
     }
     novoNo->pedidoInfo = p; //armazena o pedido no novo nó
-    novoNo->proximoNoFila = NULL; //como é último, não aponta para ninguém
+    novoNo->proximoNoFila = NULL; //como é último, não aponta pra ninguém
 
-    if (filaCozinhaVazia(q)) { //verifica se a fila está vazia
+    if (filaCozinhaVazia(q)) { //verifica se a fila tá vazia
         q->inicio = novoNo; //atribui o pedido como o primeiro da fila
-        q->fim = novoNo; //atribui o pedido como último, pois ele é o único pedido
+        q->fim = novoNo; //atribui o pedido como último, porque ele é o único pedido
     }
 
     else{
