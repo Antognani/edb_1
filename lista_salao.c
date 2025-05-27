@@ -79,7 +79,7 @@ void listarPedidosPendentesSalao(NoLista* cabecaLista) {
     NoLista* atual = cabecaLista; //ponteiro para pecorrer a lista
     int contador = 1; //contador para exibir número do pedido
     while (atual != NULL) { //while fica ativo enquanto houver pedidos na lista
-        printf("\nPedido #%d (ID Global: %d)\n", contador++, atual->pedidoInfo.idPedido); //imprime número e id do pedido
+        printf("\nPedido #%d (ID: %d)\n", contador++, atual->pedidoInfo.idPedido); //imprime número e id do pedido
         ItemPedido* itemAtual = atual->pedidoInfo.itensPedido; //ponteiro para pecorrer itens do pedido
         if (itemAtual == NULL) { //verifica se o pedido está vazio
             printf("  (Este pedido esta vazio!)\n"); //imprime que pedido está vazio
@@ -116,7 +116,7 @@ void liberarListaPedidosSalao(NoLista* cabecaLista) {
 //função para criar pedidos
 Pedido criarPedido(Prato cardapio[], int numPratosCardapio, int* proximoIdPedido) {
     Pedido novoPedido; //define variável para novo pedido
-    novoPedido.idPedido = (*proximoIdPedido)++; //atribui ID único e incrementa contador global para não repetir IDs
+    novoPedido.idPedido = (*proximoIdPedido)++; //atribui ID único e incrementa contador (q é global) para não repetir IDs
     novoPedido.itensPedido = NULL; //inciializa a lista de itens vazia
 
     printf("\n--- Criando novo pedido (ID: %d) ---\n", novoPedido.idPedido); //imprime início de criação de pedido
